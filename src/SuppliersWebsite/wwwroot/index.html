@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!--stylesheets-->
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+    <title>Supplier Products</title>
+</head>
+<body ng-controller="Supplier as supplier">
+<!-- Sidebar -->
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#intro">Products</a>
+                </li>
+                <li>
+                    <a href="#two">Post data</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Intro -->
+    <section id="intro" class="wrapper style1 fullscreen fade-up">
+        <div class="inner">
+            <h1>Products</h1>
+            <p>
+                List of products received from a Web API.
+            </p>
+            <div id="products">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>EAN</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in supplier.products">
+                        <td>{{item.EAN}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="actions">
+                <li>
+                    <a href="#two" class="button scrolly">View Post Data</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- Two -->
+    <section id="two" class="wrapper style3 fade-up">
+        <div class="inner">
+            <h2>Post Data</h2>
+            <p>Here you can check if the Post data received is correct.</p>
+            <div class="features">
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>TransId</h3>
+                    <p>Transaction Id(this Transaction Id will be used in the subsequent requests to communicate with TCT client)</p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>StoreId</h3>
+                    <p>Store Id</p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>TerminalId</h3>
+                    <p>Terminal Id</p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>POSOperation</h3>
+                    <p>
+                        Represent the operation which supplier will be performing during the processing Possible Values are:<br/>
+                        UNCHANGED<br/>
+                        NONE<br/>
+                        NEW_SCAN_TRANS<br/>
+                        COMMIT<br/>
+                        CANCEL<br/>
+                        FINISHED <br/>
+                    </p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>CustomerSessionId</h3>
+                    <p>Current users session id in TCT Client </p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>GTID</h3>
+                    <p>GTID parameter will be provided by TCTClient during the COMMIT stage to implement shopping cart. </p>
+                </section>
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>currentPOSTotal</h3>
+                    <p>
+                        If requested by the client contains currentPOSTotal=true, TCTClient will insert the current POS total to the url as well.<br/>
+                        In case there is any error retrieving the total, SumGrabberError might be sent
+                    </p>
+                </section>
+                <section></section>
+            </div>
+            <ul class="actions">
+                <li>
+                    <a href="#intro" class="button scrolly">View Products</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; Untitled. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+    </div>
+</footer>
+<!--<div class="container">
+    <input type="text" ng-model="supplier.name" placeholder="Supplier name"/>
+    <p>{{supplier.name}}</p>
+
+    <span class="button-row">
+                  <input onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" align="middle" type="button">
+           </span>
+
+</div>-->
+
+<!--scripts-->
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="js/app/app.module.js"></script>
+<script src="js/app/supplier.js"></script>
+<script src="lib/other/jquery.scrollex.min.js"></script>
+<script src="lib/other/jquery.scrolly.min.js"></script>
+<script src="lib/other/skel.min.js"></script>
+<script src="lib/other/util.js"></script>
+<script src="lib/other/main.js"></script>
+</body>
+</html>
