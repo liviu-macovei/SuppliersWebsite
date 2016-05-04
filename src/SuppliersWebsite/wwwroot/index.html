@@ -33,12 +33,14 @@
 <div id="wrapper">
 
     <!-- Intro -->
-    <section id="intro" class="wrapper style1 fullscreen fade-up">
+    <section id="intro" class="wrapper style1 fullscreen fade-up" ng-controller="Product as product">
         <div class="inner">
-            <h1>Products</h1>
+            <h1>Products for {{supplier.currentSupplier.Name}}</h1>
             <p>
                 List of products received from a Web API.
             </p>
+            <p>{{product.status}}</p>
+            <p>{{supplier.status}}</p>
             <div id="products">
                 <table>
                     <thead>
@@ -49,13 +51,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in supplier.products">
+                    <tr ng-repeat="item in product.products">
                         <td>{{item.EAN}}</td>
                         <td>{{item.Name}}</td>
                         <td>{{item.Price}}</td>
                     </tr>
                     </tbody>
                 </table>
+               
             </div>
             <ul class="actions">
                 <li>
@@ -73,6 +76,7 @@
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>TransId</h3>
+                    <h3>{{product.PostData.TransId}}</h3>
                     <p>Transaction Id(this Transaction Id will be used in the subsequent requests to communicate with TCT client)</p>
                 </section>
                 <section>
@@ -137,9 +141,6 @@
     </div>
 </footer>
 <!--<div class="container">
-    <input type="text" ng-model="supplier.name" placeholder="Supplier name"/>
-    <p>{{supplier.name}}</p>
-
     <span class="button-row">
                   <input onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" align="middle" type="button">
            </span>
@@ -152,7 +153,10 @@
 <script src="lib/angular-route/angular-route.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="js/app/app.module.js"></script>
+<script src="js/app/productFactory.js"></script>
+<script src="js/app/supplierFactory.js"></script>
 <script src="js/app/supplier.js"></script>
+    <script src="js/app/product.js"></script>
 <script src="lib/other/jquery.scrollex.min.js"></script>
 <script src="lib/other/jquery.scrolly.min.js"></script>
 <script src="lib/other/skel.min.js"></script>
