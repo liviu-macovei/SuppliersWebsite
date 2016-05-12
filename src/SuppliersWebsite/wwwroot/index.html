@@ -11,7 +11,9 @@
     <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="css/main.css" rel="stylesheet"/>
-    <title>Supplier Products</title>
+
+    <base href="/">
+    <title>Supplier Products</title>   
 </head>
 <body ng-controller="Supplier as supplier">
 <!-- Sidebar -->
@@ -48,6 +50,7 @@
                         <td>EAN</td>
                         <td>Name</td>
                         <td>Price</td>
+                        <td>Add to basket</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -55,10 +58,11 @@
                         <td>{{item.EAN}}</td>
                         <td>{{item.Name}}</td>
                         <td>{{item.Price}}</td>
+                        <td><button ng-click="product.AddProduct(item.EAN)">Add</button></td>
                     </tr>
                     </tbody>
                 </table>
-               
+
             </div>
             <ul class="actions">
                 <li>
@@ -68,7 +72,7 @@
         </div>
     </section>
     <!-- Two -->
-    <section id="two" class="wrapper style3 fade-up">
+    <section id="two" class="wrapper style3 fade-up"  ng-controller="PostData as postData">
         <div class="inner">
             <h2>Post Data</h2>
             <p>Here you can check if the Post data received is correct.</p>
@@ -76,22 +80,25 @@
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>TransId</h3>
-                    <h3>{{product.PostData.TransId}}</h3>
+                    <h3>{{postData.postData.TransId}}</h3>
                     <p>Transaction Id(this Transaction Id will be used in the subsequent requests to communicate with TCT client)</p>
                 </section>
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>StoreId</h3>
+                    <h3>{{postData.postData.StoreId}}</h3>
                     <p>Store Id</p>
                 </section>
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>TerminalId</h3>
+                    <h3>{{postData.postData.TerminalId}}</h3>
                     <p>Terminal Id</p>
                 </section>
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>POSOperation</h3>
+                    <h3>{{postData.postData.POSOperation}}</h3>
                     <p>
                         Represent the operation which supplier will be performing during the processing Possible Values are:<br/>
                         UNCHANGED<br/>
@@ -105,16 +112,19 @@
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>CustomerSessionId</h3>
+                    <h3>{{postData.postData.CustomerSessionId}}</h3>
                     <p>Current users session id in TCT Client </p>
                 </section>
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>GTID</h3>
+                    <h3>{{postData.postData.GTID}}</h3>
                     <p>GTID parameter will be provided by TCTClient during the COMMIT stage to implement shopping cart. </p>
                 </section>
                 <section>
                     <span class="icon major fa-code"></span>
                     <h3>currentPOSTotal</h3>
+                    <h3>{{postData.postData.CurrentPOSTotal}}</h3>
                     <p>
                         If requested by the client contains currentPOSTotal=true, TCTClient will insert the current POS total to the url as well.<br/>
                         In case there is any error retrieving the total, SumGrabberError might be sent
@@ -153,10 +163,16 @@
 <script src="lib/angular-route/angular-route.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="js/app/app.module.js"></script>
+    <script src="js/app/app.config.route.js"></script>
+
 <script src="js/app/productFactory.js"></script>
 <script src="js/app/supplierFactory.js"></script>
+<script src="js/app/postDataFactory.js"></script>
+
 <script src="js/app/supplier.js"></script>
-    <script src="js/app/product.js"></script>
+<script src="js/app/product.js"></script>
+<script src="js/app/postData.js"></script>
+
 <script src="lib/other/jquery.scrollex.min.js"></script>
 <script src="lib/other/jquery.scrolly.min.js"></script>
 <script src="lib/other/skel.min.js"></script>

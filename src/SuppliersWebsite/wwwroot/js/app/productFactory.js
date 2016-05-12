@@ -22,7 +22,7 @@
 
         function insertProduct(product) {
             return $http.post(urlBase, product);
-        };
+        };       
 
         function updateProduct(product) {
             return $http.put(urlBase + "/" + product.ID, product);

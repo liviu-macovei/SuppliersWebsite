@@ -1,28 +1,34 @@
-﻿(function () {
-    'use strict';
+﻿(function() {
+    "use strict";
 
     angular
-        .module('app')
-        .controller('Product', Product);
+        .module("app")
+        .controller("Product", Product);
 
-    Product.$inject = ['$location', "productFactory"]; 
+    Product.$inject = ["$location", "productFactory","postDataFactory"];
 
-    function Product($location, productFactory) {
+    function Product($location, productFactory, postDataFactory) {
         /* jshint validthis:true */
         var vm = this;
-        vm.title = 'product';
+        vm.title = "product";
 
         getProducts();
 
         function getProducts() {
             productFactory.GetProducts()
-                .then(function (response) {
-                    vm.products = response.data;
-                },
-                    function (error) {
+                .then(function(response) {
+                        vm.products = response.data;
+                    },
+                    function(error) {
                         vm.status = "Unable to load customer data: " + error.message;
                     });
         }
+
+        vm.AddProduct = function addProduct(EAN) {
+            window.external.AddCraAddTransaction(EAN);
+            window.external.CraCalCompleteEvent();
+            window.external.HideEvent2();
+        };
 
         /* [
         { "EAN": "1", "Name": "One", "Price": "100$" },
@@ -35,6 +41,6 @@
     ];*/
         activate();
 
-        function activate() { }
+        function activate() {}
     }
 })();
