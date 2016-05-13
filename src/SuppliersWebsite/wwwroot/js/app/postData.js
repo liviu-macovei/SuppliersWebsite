@@ -11,19 +11,30 @@
         /* jshint validthis:true */
         var vm = this;
         vm.title = "postData";
-        /*$locationProvider.html5Mode(true);*/
-        var searchObject = $location.search();
-        vm.searchObject = searchObject;
-        //TODO once connected to the POS remove this
-        setDefaultPostData();
-        function setDefaultPostData() {
-            postDataFactory.SetDefaultPostData();
-            vm.postData = postDataFactory.GetPostData();
-        }
 
         getPostData();
 
         function getPostData() {
+            var searchObject = $location.search();
+            var pData = {};
+            //just to make sure that only the needed parameters are taken
+            pData.TransId = searchObject.TransId;
+            pData.StoreId = searchObject.StoreId;
+            pData.TerminalId = searchObject.TerminalId;
+            pData.POSOperation = searchObject.POSOperation;
+            pData.CustomerSessionId = searchObject.CustomerSessionId;
+            pData.GTID = searchObject.GTID;
+            pData.CurrentPOSTotal = searchObject.CurrentPOSTotal;
+            postDataFactory.postData = pData;
+            vm.postData = pData;
+        }
+
+        vm.setDefaultPostData = function setDefaultPostData() {
+            postDataFactory.SetDefaultPostData();
+            /*vm.postData = postDataFactory.GetPostData();*/
+        };
+
+        function getPostDataFromAPI() {
             vm.postData = postDataFactory.GetPostData();
         }
 

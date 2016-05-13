@@ -14,6 +14,15 @@ namespace SuppliersWebsite
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                   "CorsSuppliersWebApi",
+                    builder =>
+                    {
+                        builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +41,7 @@ namespace SuppliersWebsite
                     await next();
                 }
             });
+            app.UseCors("CorsSuppliersWebApi");
             app.UseIISPlatformHandler();
             app.UseFileServer();
             app.UseFileServer(new FileServerOptions()

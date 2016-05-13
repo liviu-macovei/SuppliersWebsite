@@ -25,7 +25,7 @@
                 terminalId = "1",
                 posOperation = "NEW_SCAN_TRANS",
                 customerSessionId = "711D9051K1_20160418093218",
-                gtid = "something; who knows?",
+                gtid = "something; who knowsa?",
                 currentPosTotal = "true";
 
             setPostData(transId, storeId, terminalId, posOperation, customerSessionId, gtid, currentPosTotal);
@@ -33,7 +33,7 @@
 
         function setPostData(transId, storeId, terminalId, posOperation, customerSessionId, gtid, currentPOSTotal) {
 
-            var params = $.param({
+            var params = {
                 "TransId": transId,
                 "StoreId": storeId,
                 "TerminalId": terminalId,
@@ -41,7 +41,7 @@
                 "CustomerSessionId": customerSessionId,
                 "GTID": gtid,
                 "CurrentPOSTotal": currentPOSTotal
-            });
+            };
             vm.postData = {
                 "TransId": transId,
                 "StoreId": storeId,
@@ -51,6 +51,31 @@
                 "GTID": gtid,
                 "CurrentPOSTotal": currentPOSTotal
             };
+         /*   $http({
+                method: 'POST',
+                url: urlBase,
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"                    
+                }
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });*/
+
+
+
+            //THIS IS NOT POSSIBLE 
+
+
+            //TODO: redirect not working because chrome breaks: 
+            /*XMLHttpRequest cannot load http://localhost:49580/api/PostData.
+            The request was redirected to 'http://localhost:14436/Home/Index?TransId=711D9051K120160418093218556000000…K1_20160418093218&GTID=something%3B%20who%20knowsa%3F&CurrentPOSTotal=true',
+            which is disallowed for cross-origin requests that require preflight.*/
           //  return $http.post(urlBase, params);
         };
 

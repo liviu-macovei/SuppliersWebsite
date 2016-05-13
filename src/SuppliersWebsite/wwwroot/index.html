@@ -7,176 +7,283 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <!--stylesheets-->
-    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
-    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
-    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-    <link href="css/main.css" rel="stylesheet"/>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
 
     <base href="/">
-    <title>Supplier Products</title>   
+    <title>Supplier Products</title>
 </head>
 <body ng-controller="Supplier as supplier">
-<!-- Sidebar -->
-<section id="sidebar">
-    <div class="inner">
-        <nav>
-            <ul>
-                <li>
-                    <a href="#intro">Products</a>
-                </li>
-                <li>
-                    <a href="#two">Post data</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</section>
-<!-- Wrapper -->
-<div id="wrapper">
-
-    <!-- Intro -->
-    <section id="intro" class="wrapper style1 fullscreen fade-up" ng-controller="Product as product">
+    <!-- Sidebar -->
+    <section id="sidebar">
         <div class="inner">
-            <h1>Products for {{supplier.currentSupplier.Name}}</h1>
-            <p>
-                List of products received from a Web API.
-            </p>
-            <p>{{product.status}}</p>
-            <p>{{supplier.status}}</p>
-            <div id="products">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>EAN</td>
-                        <td>Name</td>
-                        <td>Price</td>
-                        <td>Add to basket</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="item in product.products">
-                        <td>{{item.EAN}}</td>
-                        <td>{{item.Name}}</td>
-                        <td>{{item.Price}}</td>
-                        <td><button ng-click="product.AddProduct(item.EAN)">Add</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <ul class="actions">
-                <li>
-                    <a href="#two" class="button scrolly">View Post Data</a>
-                </li>
-            </ul>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#intro">Products</a>
+                    </li>
+                    <li>
+                        <a href="#tenders">Tenders</a>
+                    </li>
+                    <li>
+                        <a href="#two">Post data</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
-    <!-- Two -->
-    <section id="two" class="wrapper style3 fade-up"  ng-controller="PostData as postData">
-        <div class="inner">
-            <h2>Post Data</h2>
-            <p>Here you can check if the Post data received is correct.</p>
-            <div class="features">
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>TransId</h3>
-                    <h3>{{postData.postData.TransId}}</h3>
-                    <p>Transaction Id(this Transaction Id will be used in the subsequent requests to communicate with TCT client)</p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>StoreId</h3>
-                    <h3>{{postData.postData.StoreId}}</h3>
-                    <p>Store Id</p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>TerminalId</h3>
-                    <h3>{{postData.postData.TerminalId}}</h3>
-                    <p>Terminal Id</p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>POSOperation</h3>
-                    <h3>{{postData.postData.POSOperation}}</h3>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Intro -->
+        <section id="intro" class="wrapper style1 fullscreen fade-up" ng-controller="Product as product">
+            <div class="inner">
+                <h1>Products for {{supplier.currentSupplier.Name}}</h1>
+                <p>
+                    List of products received from a Web API.
+                </p>
+                <p>{{product.status}}</p>
+                <p>{{supplier.status}}</p>
+                <div id="products">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>EAN</td>
+                                <td>Name</td>
+                                <td>Price</td>
+                                <td>Add to POS Basket</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in product.products">
+                                <td>{{item.EAN}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Price}}</td>
+                                <td>
+                                    <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
+                                    <button ng-click="product.AddProduct(item)">Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="selectedProducts" ng-hide="product.selectedProducts.length == 0">
                     <p>
-                        Represent the operation which supplier will be performing during the processing Possible Values are:<br/>
-                        UNCHANGED<br/>
-                        NONE<br/>
-                        NEW_SCAN_TRANS<br/>
-                        COMMIT<br/>
-                        CANCEL<br/>
-                        FINISHED <br/>
+                        List of products in basket.
                     </p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>CustomerSessionId</h3>
-                    <h3>{{postData.postData.CustomerSessionId}}</h3>
-                    <p>Current users session id in TCT Client </p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>GTID</h3>
-                    <h3>{{postData.postData.GTID}}</h3>
-                    <p>GTID parameter will be provided by TCTClient during the COMMIT stage to implement shopping cart. </p>
-                </section>
-                <section>
-                    <span class="icon major fa-code"></span>
-                    <h3>currentPOSTotal</h3>
-                    <h3>{{postData.postData.CurrentPOSTotal}}</h3>
-                    <p>
-                        If requested by the client contains currentPOSTotal=true, TCTClient will insert the current POS total to the url as well.<br/>
-                        In case there is any error retrieving the total, SumGrabberError might be sent
-                    </p>
-                </section>
-                <section></section>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>EAN</td>
+                                <td>Name</td>
+                                <td>Price</td>
+                                <td>Remove from Basket</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in product.selectedProducts track by $index">
+                                <td>{{item.EAN}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Price}}</td>
+                                <td>
+                                    <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
+                                    <button ng-click="product.RemoveProduct(item)">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <ul class="actions">
+                    <li>
+                        <a href="#two" class="button scrolly">View Post Data</a>
+                        <span class="button-row">
+                            <input ng-click="product.CancelTransaction()" onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" type="button">
+                        </span>
+                    </li>
+                </ul>
             </div>
-            <ul class="actions">
-                <li>
-                    <a href="#intro" class="button scrolly">View Products</a>
-                </li>
+        </section>
+
+        <!-- Tenders -->
+        <section id="tenders" class="wrapper style2 fullscreen fade-up" ng-controller="Tender as tender">
+            <div class="inner">
+                <h1>Tenders for {{supplier.currentSupplier.Name}}</h1>
+                <p>
+                    List of tenders received from a Web API.
+                </p>
+                <p>{{tender.status}}</p>
+                <p>{{supplier.status}}</p>
+                <div id="tenderstable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Text</td>
+                                <td>Value</td>
+                                <td>Description</td>
+                                <td>Add to POS Basket</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in tender.tenders">
+                                <td>{{item.Text}}</td>
+                                <td>{{item.Value}}</td>
+                                <td>{{item.TenderDetails}}</td>
+                                <td>
+                                    <!--ng-disabled="tender.selectedTenders.indexOf(item) > -1"-->
+                                    <button ng-click="tender.AddTender(item)">Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="selectedTenders" ng-hide="tender.selectedTenders.length == 0">
+                    <p>
+                        List of tenders in basket.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Text</td>
+                                <td>Value</td>
+                                <td>Description</td>
+                                <td>Remove from Basket</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in tender.selectedTenders track by $index">
+                                <td>{{item.Text}}</td>
+                                <td>{{item.Value}}</td>
+                                <td>{{item.TenderDetails}}</td>
+                                <td>
+                                    <!--ng-disabled="tender.selectedTenders.indexOf(item) > -1"-->
+                                    <button ng-click="tender.RemoveTender(item)">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <ul class="actions">
+                    <li>
+                        <a href="#two" class="button scrolly">View Post Data</a>
+                        <span class="button-row">
+                            <input ng-click="tender.CancelTransaction()" onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" type="button">
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Two -->
+        <section id="two" class="wrapper style3 fade-up" ng-controller="PostData as postData">
+            <div class="inner">
+                <h2>Post Data</h2>
+                <p>Here you can check if the Post data received is correct.</p>
+                <!--CANNOT START THE CALL FROM THE WEB API
+                <button ng-click="postData.setDefaultPostData()">Add</button>-->
+                <div class="features">
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>TransId</h3>
+                        <h3>{{postData.postData.TransId}}</h3>
+                        <p>Transaction Id(this Transaction Id will be used in the subsequent requests to communicate with TCT client)</p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>StoreId</h3>
+                        <h3>{{postData.postData.StoreId}}</h3>
+                        <p>Store Id</p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>TerminalId</h3>
+                        <h3>{{postData.postData.TerminalId}}</h3>
+                        <p>Terminal Id</p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>POSOperation</h3>
+                        <h3>{{postData.postData.POSOperation}}</h3>
+                        <p>
+                            Represent the operation which supplier will be performing during the processing Possible Values are:<br />
+                            UNCHANGED<br />
+                            NONE<br />
+                            NEW_SCAN_TRANS<br />
+                            COMMIT<br />
+                            CANCEL<br />
+                            FINISHED <br />
+                        </p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>CustomerSessionId</h3>
+                        <h3>{{postData.postData.CustomerSessionId}}</h3>
+                        <p>Current users session id in TCT Client </p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>GTID</h3>
+                        <h3>{{postData.postData.GTID}}</h3>
+                        <p>GTID parameter will be provided by TCTClient during the COMMIT stage to implement shopping cart. </p>
+                    </section>
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>currentPOSTotal</h3>
+                        <h3>{{postData.postData.CurrentPOSTotal}}</h3>
+                        <p>
+                            If requested by the client contains currentPOSTotal=true, TCTClient will insert the current POS total to the url as well.<br />
+                            In case there is any error retrieving the total, SumGrabberError might be sent
+                        </p>
+                    </section>
+                    <section></section>
+                </div>
+                <ul class="actions">
+                    <li>
+                        <a href="#intro" class="button scrolly">View Products</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper style1-alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; Untitled. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
             </ul>
         </div>
-    </section>
-</div>
+    </footer>
 
-<!-- Footer -->
-<footer id="footer" class="wrapper style1-alt">
-    <div class="inner">
-        <ul class="menu">
-            <li>&copy; Untitled. All rights reserved.</li>
-            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-        </ul>
-    </div>
-</footer>
-<!--<div class="container">
-    <span class="button-row">
-                  <input onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" align="middle" type="button">
-           </span>
-
-</div>-->
-
-<!--scripts-->
-<script src="lib/jquery/dist/jquery.js"></script>
-<script src="lib/angular/angular.js"></script>
-<script src="lib/angular-route/angular-route.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="js/app/app.module.js"></script>
+    <!--scripts-->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/app/app.module.js"></script>
     <script src="js/app/app.config.route.js"></script>
 
-<script src="js/app/productFactory.js"></script>
-<script src="js/app/supplierFactory.js"></script>
-<script src="js/app/postDataFactory.js"></script>
+    <script src="js/app/postDataFactory.js"></script>
+    <script src="js/app/productFactory.js"></script>
+    <script src="js/app/tenderFactory.js"></script>
+    <script src="js/app/supplierFactory.js"></script>
 
-<script src="js/app/supplier.js"></script>
-<script src="js/app/product.js"></script>
-<script src="js/app/postData.js"></script>
 
-<script src="lib/other/jquery.scrollex.min.js"></script>
-<script src="lib/other/jquery.scrolly.min.js"></script>
-<script src="lib/other/skel.min.js"></script>
-<script src="lib/other/util.js"></script>
-<script src="lib/other/main.js"></script>
+    <script src="js/app/postData.js"></script>
+    <script src="js/app/supplier.js"></script>
+    <script src="js/app/tender.js"></script>
+    <script src="js/app/product.js"></script>
+
+    <script src="lib/other/jquery.scrollex.min.js"></script>
+    <script src="lib/other/jquery.scrolly.min.js"></script>
+    <script src="lib/other/skel.min.js"></script>
+    <script src="lib/other/util.js"></script>
+    <script src="lib/other/main.js"></script>
 </body>
 </html>
