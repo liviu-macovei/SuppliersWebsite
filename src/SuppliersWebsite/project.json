@@ -16,8 +16,13 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "dnx451": {},
+    "dnxcore50": {}
+  },
+
+  "runtimes": {
+    "win8-x86": {},
+    "win7-x86": {}
   },
 
   "exclude": [

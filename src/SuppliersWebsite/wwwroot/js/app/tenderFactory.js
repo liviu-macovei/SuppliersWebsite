@@ -20,6 +20,12 @@
             return $http.get(urlBase + "/" + id);
         }
 
+        function getTenderForBarcode(barcode) {
+            return $http.get(urlBase + "/barcode=" + barcode).then(function (response) {
+                return response;
+            });;
+        }
+
         function insertTender(tender) {
             return $http.post(urlBase, tender);
         };       
@@ -35,6 +41,7 @@
         var service = {
             GetTenders: getTenders,
             GetTender: getTender,
+            GetTenderForBarcode: getTenderForBarcode,
             InsertTender: insertTender,
             UpdateTender: updateTender,
             DeleteTender: deleteTender
