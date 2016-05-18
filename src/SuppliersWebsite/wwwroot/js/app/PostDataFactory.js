@@ -9,7 +9,7 @@
 
     function postDataFactory($http) {
 
-        var urlBase = "http://localhost:49580/api/PostData";
+        var urlBase = "http://supplierswebapi.azurewebsites.net/api/PostData";
         var vm = this;
        
         function getPostData() {
@@ -73,7 +73,7 @@
 
 
             //TODO: redirect not working because chrome breaks: 
-            /*XMLHttpRequest cannot load http://localhost:49580/api/PostData.
+            /*XMLHttpRequest cannot load http://supplierswebapi.azurewebsites.net/api/PostData.
             The request was redirected to 'http://localhost:14436/Home/Index?TransId=711D9051K120160418093218556000000…K1_20160418093218&GTID=something%3B%20who%20knowsa%3F&CurrentPOSTotal=true',
             which is disallowed for cross-origin requests that require preflight.*/
           //  return $http.post(urlBase, params);

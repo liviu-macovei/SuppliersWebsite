@@ -10,7 +10,7 @@
     function productFactory($http) {
 
 
-        var urlBase = "http://localhost:49580/api/Products";
+        var urlBase = "http://supplierswebapi.azurewebsites.net/api/Products";
 
         function getProducts() {
             return $http.get(urlBase);

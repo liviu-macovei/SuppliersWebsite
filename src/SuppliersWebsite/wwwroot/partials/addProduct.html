@@ -1,0 +1,16 @@
+﻿<br/>
+<form novalidate name="products" class="col-md-offset-3 col-md-4"
+      ng-submit="product.Save()">
+    <div>
+        <p>{{product.status}}</p>
+        <label>EAN</label>
+        <input class="form-control" type="text" ng-model="product.productToSave.EAN" required>
+        <label>Name</label>
+        <input type="text" ng-model="product.productToSave.Name" required>
+        <label>Price</label>
+        <input type="text" ng-model="product.productToSave.Price" required>
+    </div>
+    <br/>
+    <input type="submit" value="Save" class="btn btn-primary"/>
+
+</form>

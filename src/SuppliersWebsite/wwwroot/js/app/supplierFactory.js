@@ -9,7 +9,7 @@
 
     function supplierFactory($http) {
 
-        var urlBase = "http://localhost:49580/api/suppliers";
+        var urlBase = "http://supplierswebapi.azurewebsites.net/api/suppliers";
 
         function getSuppliers() {
             return $http.get(urlBase);

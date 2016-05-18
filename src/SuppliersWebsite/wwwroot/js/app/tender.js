@@ -45,16 +45,7 @@
             if (typeof item != "undefined")
                 vm.selectedTenders.push(item);
             try {
-                window.external.AddCraAddTender(postDataFactory.postData.TransId,
-                    "IMMEDIATE",
-                    "321",
-                    "3300",
-                    "T,321,3300,1,D,321,3300,1");
-                window.external.CraCalCompleteEvent();
-                window.external.AddCraPrintReceipt(postDataFactory.postData.TransId,
-                    "COMMIT_ERROR",
-                    "commit error receipt");
-                window.external.HideEvent2();
+         
             } catch (err) {
             }
         };
@@ -82,21 +73,14 @@
 
         vm.RemoveTender = function removeTender(item) {
             if (vm.selectedTenders.indexOf(item) > -1)
-                vm.selectedTenders.pop(item);
-            window.external.AddCraCancelResult(postDataFactory.postData.TransId, "IMMEDIATE", "True");
+                vm.selectedTenders.pop(item);        
         };
 
-        vm.PaymentWasDone = function paymentWasDone() {
-            window.external.AddCraPrintReceipt(postDataFactory.postData.TransId,
-                "IMMEDIATE",
-                "text to print on the receipt");
+        vm.PaymentWasDone = function paymentWasDone() {            
         };
 
         vm.SomethingFailed = function somethingFailed() {
-            window.external.AddCraPrintReceipt(postDataFactory.postData
-                .TransId,
-                "COMMIT_ERROR",
-                "commit error receipt");
+            
         };
 
         vm.CancelTransaction = function cancelTransaction() {

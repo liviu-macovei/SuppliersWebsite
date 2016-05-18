@@ -10,7 +10,7 @@
     function tenderFactory($http) {
 
 
-        var urlBase = "http://localhost:49580/api/Tenders";
+        var urlBase = "http://supplierswebapi.azurewebsites.net/api/Tenders";
 
         function getTenders() {
             return $http.get(urlBase);
