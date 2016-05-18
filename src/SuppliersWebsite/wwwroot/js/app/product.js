@@ -11,6 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.title = "product";
+        vm.productToSave = {};
         vm.selectedProducts = [];
         getProducts();
 
@@ -24,35 +25,28 @@
                     });
         }
 
-        vm.AddProduct = function addProduct(item) {
+        vm.Save = function () {
+            //TODO propagate to db
+            vm.products.push(vm.productToSave);
+        };
+
+        vm.SelectProduct = function selectProduct(item) {
             /*
             If the product can be added only once
             if (vm.selectedProducts.indexOf(item) == -1)
             */
             vm.selectedProducts.push(item);
-            window.external.AddCraAddTransaction(item.EAN);
-            window.external.CraCalCompleteEvent();
-            window.external.AddCraPrintReceipt(postDataFactory.postData.TransId, "COMMIT_ERROR", "commit error receipt");
-            window.external.HideEvent2();
         };
 
         vm.RemoveProduct = function removeProduct(item) {
             if (vm.selectedProducts.indexOf(item) > -1)
                 vm.selectedProducts.pop(item);
-            window.external.AddCraCancelResult(postDataFactory.postData.TransId, "IMMEDIATE", "True");
         };
 
         vm.PaymentWasDone = function paymentWasDone() {
-            window.external.AddCraPrintReceipt(postDataFactory.postData.TransId,
-                "IMMEDIATE",
-                "text to print on the receipt");
         };
 
         vm.SomethingFailed = function somethingFailed() {
-            window.external.AddCraPrintReceipt(postDataFactory.postData
-                .TransId,
-                "COMMIT_ERROR",
-                "commit error receipt");
         };
 
         vm.CancelTransaction = function cancelTransaction() {

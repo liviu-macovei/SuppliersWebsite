@@ -3,7 +3,8 @@
 
     angular.module('app', [
         // Angular modules 
-        'ngRoute'
+        'ngRoute',
+        'ui.router'
 
         // Custom modules 
 

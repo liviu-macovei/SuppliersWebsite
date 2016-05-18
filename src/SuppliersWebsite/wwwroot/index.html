@@ -7,17 +7,17 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <!--stylesheets-->
-    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
 
     <base href="/">
     <title>Supplier Products</title>
 </head>
 <body ng-controller="Supplier as supplier">
-    <div ng-controller="PostData as postdata">
-    </div>
+<div ng-controller="PostData as postdata">
+</div>
 <!-- Sidebar -->
 <section id="sidebar">
     <div class="inner">
@@ -43,70 +43,73 @@
 <section id="intro" class="wrapper style1 fullscreen fade-up" ng-controller="Product as product">
     <div class="inner">
         <h1>Products for {{supplier.currentSupplier.Name}}</h1>
-        <p>
-            List of products received from a Web API.
-        </p>
-        <p>{{product.status}}</p>
-        <p>{{supplier.status}}</p>
-        <div id="products">
-            <table>
-                <thead>
-                <tr>
-                    <td>EAN</td>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Add to POS Basket</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in product.products">
-                    <td>{{item.EAN}}</td>
-                    <td>{{item.Name}}</td>
-                    <td>{{item.Price}}</td>
-                    <td>
-                        <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
-                        <button ng-click="product.AddProduct(item)">Add</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <div id="selectedProducts" ng-hide="product.selectedProducts.length == 0">
+        <div ui-view="viewAdd" class="row"></div>
+        <div>
             <p>
-                List of products in basket.
+                List of products received from a Web API.
             </p>
-            <table>
-                <thead>
-                <tr>
-                    <td>EAN</td>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Remove from Basket</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in product.selectedProducts track by $index">
-                    <td>{{item.EAN}}</td>
-                    <td>{{item.Name}}</td>
-                    <td>{{item.Price}}</td>
-                    <td>
-                        <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
-                        <button ng-click="product.RemoveProduct(item)">Remove</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <p>{{product.status}}</p>
+            <p>{{supplier.status}}</p>
+            <div id="products">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>EAN</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>Add to POS Basket</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in product.products track by $index">
+                        <td>{{item.EAN}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Price}}</td>
+                        <td>
+                            <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
+                            <button ng-click="product.SelectProduct(item)">Add</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
+            </div>
+            <div id="selectedProducts" ng-hide="product.selectedProducts.length == 0">
+                <p>
+                    List of products in basket.
+                </p>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>EAN</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>Remove from Basket</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in product.selectedProducts track by $index">
+                        <td>{{item.EAN}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Price}}</td>
+                        <td>
+                            <!--ng-disabled="product.selectedProducts.indexOf(item) > -1"-->
+                            <button ng-click="product.RemoveProduct(item)">Remove</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <ul class="actions">
+                <li>
+                    <a href="#two" class="button scrolly">View Post Data</a>
+                    <span class="button-row">
+                        <input ng-click="product.CancelTransaction()" class="btn btn-primary button closeButton close2Button" value="Afslut" type="button">
+                    </span>
+                </li>
+            </ul>
         </div>
-        <ul class="actions">
-            <li>
-                <a href="#two" class="button scrolly">View Post Data</a>
-                <span class="button-row">
-                            <input ng-click="product.CancelTransaction()" onclick="javascript:window.external.CancelEvent();" class="btn btn-primary button closeButton close2Button" value="Afslut" type="button">
-                        </span>
-            </li>
-        </ul>
     </div>
 </section>
 
@@ -141,7 +144,7 @@
                 </tr>
                 </tbody>
             </table>
-
+            <div ui-view></div>
         </div>
         <div id="selectedTenders" ng-hide="tender.selectedTenders.length == 0">
             <p>
@@ -267,6 +270,7 @@
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="js/app/app.module.js"></script>
 <script src="js/app/app.config.route.js"></script>
