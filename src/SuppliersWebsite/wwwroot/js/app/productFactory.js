@@ -21,7 +21,22 @@
         }
 
         function insertProduct(product) {
-            return $http.post(urlBase, product);
+         return $http({
+                method: 'POST',
+                url: urlBase,
+                data: product,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
+                }
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+         /*   return $http.post(urlBase, product);*/
         };       
 
         function updateProduct(product) {

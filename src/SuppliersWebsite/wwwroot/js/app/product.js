@@ -25,9 +25,11 @@
                     });
         }
 
-        vm.Save = function () {
-            //TODO propagate to db
-            vm.products.push(vm.productToSave);
+        vm.Save = function(isValid) {
+            if (isValid) {
+                productFactory.InsertProduct(vm.productToSave);
+                vm.products.push(vm.productToSave);
+            }
         };
 
         vm.SelectProduct = function selectProduct(item) {

@@ -1,16 +1,61 @@
 ﻿<br/>
 <form novalidate name="products" class="col-md-offset-3 col-md-4"
+      ng-submit="product.Save(products.$valid)">
+    <div>
+        <p>{{product.status}}</p>
+        <label>EAN</label>
+        <input class="form-control" type="text" ng-model="product.productToSave.EAN" name="EAN" required ng-minlength="13"
+               ng-maxlength="13">
+        <div ng-messages="products.EAN.$error" ng-show="products.EAN.$touched" >
+            <small ng-message="minlength">EAN must be 13 characters long</small>
+            <small ng-message="maxlength">EAN must be 13 characters long</small>
+            <small ng-message="required">EAN is required.</small>
+        </div>
+        <label>Name</label>
+        <input class="form-control" type="text" ng-model="product.productToSave.Name" name="Name" required ng-minlength="3">
+        <div class="help-block" ng-messages="products.Name.$error" ng-show="products.Name.$touched">
+            <p ng-message="minlength">Name must have at least 3 characters</p>
+        </div>
+
+        <label>Price</label>
+        <input type="number" class="form-control" ng-model="product.productToSave.Price" required name="Price">
+        <div role="alert">
+            <span class="error" ng-show="products.Price.$error.required">
+                Required!
+            </span>
+            <span class="error" ng-show="products.Price.$error.number">
+                Not valid number!
+            </span>
+        </div>
+    </div>
+    <br/>
+    <input type="submit" value="Save" class="btn btn-primary" ng-disabled="products.$invalid"/>
+
+</form>
+<!--
+<br />
+<form validate name="products" class="col-md-offset-3 col-md-4"
       ng-submit="product.Save()">
     <div>
         <p>{{product.status}}</p>
         <label>EAN</label>
-        <input class="form-control" type="text" ng-model="product.productToSave.EAN" required>
+        <input type="text" ng-model="product.productToSave.EAN" required ng-minlength="13"
+               ng-maxlength="13">
+        <div class="help-block" ng-messages="products.productToSave.EAN.$error" ng-show="products.productToSave.EAN.$touched">
+            <p ng-message="minlength">EAN must be 13 characters long</p>
+            <p ng-message="maxlength">EAN must be 13 characters long</p>
+            <p ng-message="required">EAN is required.</p>
+        </div>
         <label>Name</label>
-        <input type="text" ng-model="product.productToSave.Name" required>
+        <input type="text" ng-model="product.productToSave.Name" required ng-minlength="3">
+        <div class="help-block" ng-messages="products.productToSave.Name.$error" ng-show="products.productToSave.Name.$touched">
+            <p ng-message="minlength">Name must have at least 3 characters</p>
+        </div>
+
         <label>Price</label>
         <input type="text" ng-model="product.productToSave.Price" required>
     </div>
-    <br/>
-    <input type="submit" value="Save" class="btn btn-primary"/>
+    <br />
+    <input type="submit" value="Save" class="btn btn-primary" />
 
-</form>
+</form>-->

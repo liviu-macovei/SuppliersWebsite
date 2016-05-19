@@ -4,7 +4,8 @@
     angular.module('app', [
         // Angular modules 
         'ngRoute',
-        'ui.router'
+        'ui.router',
+        'ngMessages'
 
         // Custom modules 
 
